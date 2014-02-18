@@ -21,10 +21,41 @@ $(document).ready(function() {
         /*,
         shading: THREE.FlatShading*/
     });
-    cube = new THREE.Mesh(geometry, material);
+
+    cubes = [];
+    colors = [];
+    colors[-4] = '#ffffff';
+    colors[-3] = '#bcbdc1';
+    colors[-2] = '#070707';
+    colors[-1] = '#303032';
+    colors[0] = '#818286';
+    colors[1] = '#83806d';
+    colors[2] = '#817ea9';
+    colors[3] = '#4b8eab';
+
+
+
+
+    for (var i = -4; i < 4; i++) {
+        material = new THREE.MeshPhongMaterial({
+            ambient: '#FFFFFF',
+            color: colors[i],
+            specular: '#EEEEEE',
+            shininess: 30
+            /*,
+        shading: THREE.FlatShading*/
+        });
+        cubes[i] = new THREE.Mesh(geometry, material);
+        cubes[i].position.x = i * 30;
+        cubes[i].rotation.x = Math.PI / 5;
+        cubes[i].rotation.y = Math.PI / 5;
+        scene.add(cubes[i]);
+    };
+
+    /*cube = new THREE.Mesh(geometry, material);
     cube.rotation.x = Math.PI / 5;
     cube.rotation.y = Math.PI / 5;
-    scene.add(cube);
+    scene.add(cube);*/
 
     // create a point light
     pointLight = new THREE.PointLight(0xFFFFFF);
@@ -47,37 +78,13 @@ $(document).ready(function() {
 
 controller = function() {
     this.rotationSpeed = 0.01;
-    this.cube_position_x = 0;
-    this.cube_position_y = 0;
-    this.cube_position_z = 0;
+    // this.cube_position_x = 0;
+    // this.cube_position_y = 0;
+    // this.cube_position_z = 0;
 
     this.pointLight_position_x = 10;
     this.pointLight_position_y = 50;
     this.pointLight_position_z = 500;
-    this.addCube = function() {
-        console.log('Ka boom!!!');
-        geometry = new THREE.CubeGeometry(20, 20, 20);
-        /*material = new THREE.MeshBasicMaterial({
-        color: '#A6E22E'
-    });*/
-
-        material = new THREE.MeshPhongMaterial({
-            ambient: '#FFFFFF',
-            color: '#66D9EF',
-            specular: '#EEEEEE',
-            shininess: 30
-            /*,
-        shading: THREE.FlatShading*/
-        });
-        cube_1 = new THREE.Mesh(geometry, material);
-        cube_1.rotation.x = Math.PI / 5;
-        cube_1.rotation.y = Math.PI / 5;
-/*        cube_1.position.x = 10;
-        cube_1.position.y = 50;
-        cube_1.position.z = 100;*/
-        scene.add(cube_1);
-        run();
-    }
 }
 
 
@@ -89,19 +96,23 @@ gui.add(ctrl, 'rotationSpeed', 0.01, 0.5).step(0.0001);
 gui.add(ctrl, 'pointLight_position_x', 10, 1000);
 gui.add(ctrl, 'pointLight_position_y', 10, 1000);
 gui.add(ctrl, 'pointLight_position_z', 10, 1000);
-gui.add(ctrl, 'addCube');
-gui.add(ctrl, 'cube_position_x', -500, 500);
-gui.add(ctrl, 'cube_position_y', -500, 500);
-gui.add(ctrl, 'cube_position_z', -500, 500);
+// gui.add(ctrl, 'addCube');
+// gui.add(ctrl, 'cube_position_x', -500, 500);
+// gui.add(ctrl, 'cube_position_y', -500, 500);
+// gui.add(ctrl, 'cube_position_z', -500, 500);
 
 function run() {
     requestAnimationFrame(run);
-    cube.rotation.y += ctrl.rotationSpeed;
+    for (var i = -4; i < 4; i++) {
+        cubes[i].rotation.y += ctrl.rotationSpeed;
+        // cubes[i].position.x = ctrl.cube_position_x;
+        // cubes[i].position.y = ctrl.cube_position_y;
+        // cubes[i].position.z = ctrl.cube_position_z;
+    };
+
     pointLight.position.x = ctrl.pointLight_position_x;
     pointLight.position.y = ctrl.pointLight_position_y;
     pointLight.position.z = ctrl.pointLight_position_z;
-    cube.position.x = ctrl.cube_position_x;
-    cube.position.y = ctrl.cube_position_y;
-    cube.position.z = ctrl.cube_position_z;
+
     renderer.render(scene, camera);
 }
