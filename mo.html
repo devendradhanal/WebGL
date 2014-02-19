@@ -92,11 +92,25 @@
 
     init();
     controller = function() {
+        this.morph_0 = 0.0;
         this.morph_1 = 0.0;
+        this.morph_2 = 0.0;
+        this.morph_3 = 0.0;
+        this.morph_4 = 0.0;
+        this.morph_5 = 0.0;
+        this.morph_6 = 0.0;
+        this.morph_7 = 0.0;
     }
     ctrl = new controller();
     gui = new dat.GUI();
+    gui.add(ctrl, 'morph_0', -100.0, 100.0).step(0.01);
     gui.add(ctrl, 'morph_1', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_2', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_3', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_4', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_5', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_6', -100.0, 100.0).step(0.01);
+    gui.add(ctrl, 'morph_7', -100.0, 100.0).step(0.01);
     // ctrl_0.onChange(function(value) {
     //     mesh.morphTargetInfluences[0] = value / 100;
     // });
@@ -223,12 +237,19 @@
 
         // mesh.rotation.y += 0.01;
 
-        // mesh.morphTargetInfluences[ 0 ] = Math.sin( mesh.rotation.y ) * 0.5 + 0.5;
-        mesh.morphTargetInfluences[2] = ctrl.morph_1;
+        //mesh.morphTargetInfluences[ 0 ] = Math.sin( mesh.rotation.y ) * 0.5 + 0.5;
+        mesh.morphTargetInfluences[0] = ctrl.morph_0;
+        mesh.morphTargetInfluences[1] = ctrl.morph_1;
+        mesh.morphTargetInfluences[2] = ctrl.morph_2;
+        mesh.morphTargetInfluences[3] = ctrl.morph_3;
+        mesh.morphTargetInfluences[4] = ctrl.morph_4;
+        mesh.morphTargetInfluences[5] = ctrl.morph_5;
+        mesh.morphTargetInfluences[6] = ctrl.morph_6;
+        mesh.morphTargetInfluences[7] = ctrl.morph_7;
         //camera.position.x += ( mouseX - camera.position.x ) * .005;
         // camera.position.y += (-mouseY - camera.position.y) * .01;
 
-        // camera.lookAt(scene.position);
+        camera.lookAt(scene.position);
 
         renderer.render(scene, camera);
 
